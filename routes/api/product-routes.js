@@ -34,6 +34,7 @@ router.get('/:id', (req, res) => {
 });
 
 // create new product
+//error
 router.post('/', (req, res) => {
   /* req.body should look like this...
     {
@@ -43,7 +44,12 @@ router.post('/', (req, res) => {
       tagIds: [1, 2, 3, 4]
     }
   */
-  Product.create(req.body)
+  Product.create({
+    product_name: req.body.product_name,
+    price: req.body.price,
+    stock: req.body.stock,
+    tagIds: req.body.tagIds
+  })
     .then((product) => {
       // if there's product tags, we need to create pairings to bulk create in the ProductTag model
       if (req.body.tagIds.length) {
@@ -66,6 +72,7 @@ router.post('/', (req, res) => {
 });
 
 // update product
+//error
 router.put('/:id', (req, res) => {
   // update product data
   Product.update(req.body, {
@@ -102,7 +109,7 @@ router.put('/:id', (req, res) => {
     })
     .then((updatedProductTags) => res.json(updatedProductTags))
     .catch((err) => {
-      // console.log(err);
+      console.log(err);
       res.status(400).json(err);
     });
 });
