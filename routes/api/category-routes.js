@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const { Category, Product } = require('../../models');
+const Category = require('../../models/Category');
 
 // The `/api/categories` endpoint
 
@@ -19,7 +19,7 @@ router.get('/:id', (req, res) => {
   // be sure to include its associated Products
   Category.findOne({
     where: {
-      id: res.params.id
+      id: req.params.id
     },
   })
     .then(dbUserData => {
